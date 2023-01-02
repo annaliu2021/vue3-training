@@ -10,6 +10,7 @@ createApp({
     };
   },
   methods: {
+    //檢查是否登入
     checkAdmin() {
       const url = `${this.apiUrl}/api/user/check`;
       axios
@@ -22,6 +23,7 @@ createApp({
           window.location = "login.html";
         });
     },
+    //取得所有產品
     getData() {
       const url = `${this.apiUrl}/api/${this.apiPath}/admin/products`;
       axios
@@ -37,6 +39,7 @@ createApp({
       this.tempProduct = item;
     },
   },
+  //只執行一次
   mounted() {
     // 取出 Token
     const token = document.cookie.replace(
