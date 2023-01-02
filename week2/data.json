@@ -1,0 +1,55 @@
+[
+  {
+    "category": "保溫杯/瓶",
+    "content": "1500ml",
+    "description":"嚴選食品級304不鏽鋼，是一款可保溫保冷兩用的大容量保溫瓶，圓潤寬口，好喝好清洗，內附304不鏽鋼濾茶格設計，讓喝茶更舒心，不會喝到茶葉渣。10cm手拎提把，便攜提著走！適合一家大小外出露營郊遊使用！",
+    "is_enabled": 1,
+    "origin_price": 699,
+    "price": 566,
+    "title": "補水保溫瓶1500ml-雪山白",
+    "unit": "個",
+    "imageUrl": "thermos/7987100/01.jpg",
+    "imagesUrl": ["thermos/7987100/02.jpg", "thermos/7987100/03.jpg"]
+  },
+  {
+    "category": "保溫杯/瓶",
+    "content": "720ml",
+    "description":"嚴選一體成型的鈦陶瓷塗層內膽，無接縫更安心，是一款可保冰保溫兩用的保溫杯，外層以304不鏽鋼設計的高顏質磨砂手感。4cm手拎提把，便攜提著走！適合居家、辦公都能隨行提這杯響應環保，喝飲料還能折5元！",
+    "is_enabled": 1,
+    "origin_price": 880,
+    "price": 719,
+    "title": "好提鈦瓷層保溫杯720ml-霧灰藍",
+    "unit": "個",
+    "imageUrl": "thermos/8280973/01.jpg",
+    "imagesUrl": [
+      "thermos/8280973/02.jpg",
+      "thermos/8280973/03.jpg",
+      "thermos/8280973/04.jpg",
+      "thermos/8280973/05.jpg"
+    ]
+  },
+  {
+    "category": "餐具",
+    "content": "長度17.5cm",
+    "description":"嚴選316不鏽鋼材質，通過SGS自主檢驗，無重金屬的減塑餐具使用更安心。獨家設計寬口尺寸，不僅好手握好好拿，無論吃飯，喝湯，皆大口滿意，喝湯就是開心。",
+    "is_enabled": 1,
+    "origin_price": 200,
+    "price": 169,
+    "title": "316不鏽鋼寬口湯匙【新品優惠↘85折】",
+    "unit": "個",
+    "imageUrl": "tablespoon/8541750/01.jpg",
+    "imagesUrl": ["tablespoon/8541750/02.jpg", "tablespoon/8541750/03.jpg"]
+  },
+  {
+    "category": "餐具",
+    "content": "500ml",
+    "description":"精心設計黃金轉角的方形矽膠折折盒，採用安全有認證的矽膠原料製成，安全無毒且穩定，以亮眼的繽紛色系設計，採用閉扣式上蓋，緊閉不怕漏，並可折疊堆疊好收納，在家外出都可輕巧帶著走。讓HOUSUXI與你一起從食器上添一點創意、增一點設計，為減塑生活增添更多選擇。",
+    "is_enabled": 1,
+    "origin_price": 235,
+    "price": 193,
+    "title": "正方形矽膠折折盒500ml-杏橙",
+    "unit": "個",
+    "imageUrl": "foodContainer/8029665/01.jpg",
+    "imagesUrl": ["foodContainer/8029665/02.jpg", "foodContainer/8029665/03.jpg"]
+  }
+]
