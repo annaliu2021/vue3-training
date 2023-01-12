@@ -13,8 +13,8 @@ createApp({
     login() {
       const api = "https://vue3-course-api.hexschool.io/v2/admin/signin";
 
-      console.log(this.user.username);
-      console.log(this.user.password);
+      // console.log(this.user.username);
+      // console.log(this.user.password);
 
       axios
         .post(api, this.user)
