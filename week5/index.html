@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week5</title>
+  <!-- Bootstrap CSS v5.0.0-beta1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css'
+    integrity='sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw=='
+    crossorigin='anonymous' />
+
+  <link rel="stylesheet" href="css/all.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .order-step-active {
+      background-color: #36495e !important;
+      color: rgb(255 255 255 / 50%);
+    }
+
+    .order-table-img {
+      width: 80px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body class="bg-lighter">
+  <div id="app">
+    <div class="container main my-5">
+      <div class="row">
+        <main class="col">
+          <!--  app -->
+          <section>
+            <h2 class="fs-3 fw-bold text-center mb-3">{{text}}</h2>
+            <!-- 產品清單 start -->
+            <ul class="row row-cols-lg-3 list-unstyled p-0">
+              <li v-for="item in products" :ked="item.id" class="col d-flex flex-column mb-3">
+                <div class="products-img border" role="button" @click="openModal(item)"
+                  :style="{backgroundImage:'url(' + item.imageUrl + ')'}">
+                  <small>商品內容</small>
+                </div>
+                <div class="p-3 text-center">
+                  <p class="m-0">{{item.title}}</p>
+                  <p class="mt-1"><small class="">$ {{item.price}}元 / {{item.unit}}</small></p>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-primary mt-auto fs-6 w-100"
+                  @click="addToCart(item.id)"> 加入購物車
+                  <div class="loading bounceball d-none fade"><span></span><span></span><span></span></div>
+                </button>
+              </li>
+            </ul>
+          </section>
+
+          <!-- 產品清單 end -->
+          <!-- 填寫訂購資訊 start -->
+          <div v-if="isShowOrderArea">
+            <h2 class="fs-3 fw-bold text-center mb-3">填寫訂購資訊</h2>
+            <ul class="d-flex list-unstyled row gap-4">
+              <li class="align-items-center bg-light col d-flex justify-content-center p-0 text-secondary"
+                style="height:60px">
+                <span>建立訂單</span>
+              </li>
+              <li class="align-items-center bg-light col d-flex justify-content-center p-0 text-secondary"
+                style="height:60px">
+                <span>完成訂單</span>
+              </li>
+            </ul>
+            <div class="row">
+              <!-- <div class="col-md-6">
+                <h6 class="fs-6 fw-bold border-bottom py-3 text-secondary">本次訂購內容</h6>
+                <table class="table align-middle my-4">
+                  <tbody>
+                    <tr>
+                      <td width="100">
+                        <img class="order-table-img"
+                          src="https://storage.googleapis.com/vue-course-api.appspot.com/annavue/1675490570956.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=cWTHw4e5Kr6%2BquA825d0CNCjsWCeGHLPdtBF45Kjx0EAPhtJY%2BRc4sJtNNDwKN%2FuUDBvcuWSK9HMHzGkGN2aBgn%2FL3fk13pXEp%2FMw1024kLMgjuU2%2BSdFPNSzxsCQ1UpM%2F99JNEC5OLRlI3OxYdrfg2glxWiGgc9zaDaxbcGcEzin5zeZSC4ZlGmc236%2FPwAXlnP62Dc%2FKlBFgr1jsGT%2FZsTpVKqcd6dfytcNFqLSMI%2FToZvoZf%2Fz4NM7warq%2FFIZivDDumNUuwqtihImK3U0a%2FbpRv75Y3%2BYISCzHinKSuORWOdAQ16zv9uzghjqQmLmnjesj8rECKr35XUiCFSyg%3D%3D"
+                          alt="">
+                      </td>
+                      <td>
+                        <p class="mb-1">經典肉鬆麵包</p>
+                        <p>數量：1</p>
+                      </td>
+                      <td width="100">$ 120 元</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="3" class="text-end">總計金額：$ 600 NTD</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div> -->
+              <div class="col">
+                <h6 class="fs-6 fw-bold border-bottom py-3 text-secondary">填寫訂購資訊</h6>
+                <v-form @submit="onSubmit" class="my-4" v-slot="{errors}" ref="formContainer">
+                  <div class="mb-3">
+                    <label for="name" class="form-label">訂購人姓名</label>
+                    <v-field type="text" class="form-control" id="name" placeholder="請輸入訂購人姓名" name="姓名"
+                      :class="{ 'is-invalid': errors['姓名'] }" v-model="order.user.name" rules="required"></v-field>
+                    <error-message name="姓名" class="invalid-feedback"></error-message>
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label">訂購人Email</label>
+                    <v-field type="email" class="form-control" id="email" placeholder="請輸入訂購人Email" name="Email"
+                      :class="{ 'is-invalid': errors['Email'] }" v-model="order.user.email"
+                      rules="email|required"></v-field>
+                    <error-message name="Email" class="invalid-feedback"></error-message>
+                  </div>
+                  <div class="mb-3">
+                    <label for="tel" class="form-label">訂購人手機號碼</label>
+                    <v-field type="tel" class="form-control" id="tel" placeholder="請輸入訂購人手機號碼" name="手機號碼"
+                      :class="{ 'is-invalid': errors['手機號碼'] }" v-model="order.user.tel" :rules="checkPhone"></v-field>
+                    <error-message name="手機號碼" class="invalid-feedback"></error-message>
+                  </div>
+                  <div class="mb-3">
+                    <label for="address" class="form-label">訂購人地址</label>
+                    <v-field type="text" class="form-control" id="address" placeholder="請輸入訂購人地址" name="地址"
+                      :class="{ 'is-invalid': errors['地址'] }" v-model="order.user.address" rules="required"></v-field>
+                    <error-message name="地址" class="invalid-feedback"></error-message>
+                  </div>
+                  <div class="mb-3">
+                    <label for="message" class="form-label">備註</label>
+                    <textarea class="form-control" id="message" rows="3" v-model="order.message" name="備註"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-danger w-100 mt-4">送出訂單</button>
+                </v-form>
+              </div>
+            </div>
+          </div>
+          <!-- 填寫訂購資訊 end -->
+          <!--  app -->
+        </main>
+        <aside class="col-md-3">
+          <div class="sticky-top">
+            <h5 class="fw-bold">開發步驟</h5>
+            <ol>
+              <li><del>切版</del></li>
+              <li><del>取得產品列表(get /products/all)(/products?page=1)</del></li>
+              <li><del>產品-取得單一產品(get /products/id)</del></li>
+              <li><del>產品-加入購物車按鈕(post /cart)</del></li>
+              <li><del>購物車列表(get /cart)</del></li>
+              <li><del>調整購物車數量(put /cart/id)</del></li>
+              <li><del>刪除購物車品項-單一(delete /cart/id)</del></li>
+              <li><del>刪除購物車品項-全部(delete /carts)</del></li>
+              <li><del>商品內容元件化</del></li>
+              <li><del>購物車元件化</del></li>
+              <li><del>客戶資料填寫表單畫面</del></li>
+              <li><del>客戶資料填寫表單驗證(使用 VeeValidate 套件)</del></li>
+              <li><del>表單送出按鈕(post /order)</del></li>
+              <li><del>使用 loading 套件製作 loading 效果</del></li>
+            </ol>
+            <h5 class="fw-bold">必須完成</h5>
+            <ul>
+              <li><del>使用 VeeValidate 套件完成表單驗證功能，操作文件（無ESM 版本）</del></li>
+              <li><del>使用 loading 套件製作 loading 效果</del></li>
+              <li><del>串接前台 API 完成購物車功能</del></li>
+              <li><del>新增相同產品到購物車時需累加項目</del></li>
+              <li><del>送出訂單後，購物車需要清除原本項目</del></li>
+              <li><del>購物車無產品時不建議發出結帳請求</del></li>
+              <li><del>前台頁面表單驗證（必要完成)</del></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-secondary">
+      <div class="container">
+        <h1>
+          <a class="navbar-brand" href="#">LOGO</a>
+        </h1>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">產品</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" role="button" @click="openCartOffcanvas">購物車</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <footer class="footer py-2 bg-light">
+      <div class="container text-center">
+        <small class="text-black-50 fw-light mb-0">Anna 練習文件</small>
+      </div>
+    </footer>
+
+    <!-- 購物車元件 -->
+    <cart-component ref="cartOffcanvas" @open="openOrderArea"></cart-component>
+    <!-- 產品內容元件 -->
+    <product-modal-component ref="productModal" :product="tempProduct"></product-modal-component>
+
+  </div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/4.5.8/vee-validate.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@vee-validate/rules@4.5.8/dist/vee-validate-rules.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@vee-validate/i18n@4.5.8/dist/vee-validate-i18n.min.js"></script>
+
+  <!-- 匯入pinia start -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-demi/0.13.11/index.iife.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pinia/2.0.29/pinia.iife.js"></script>
+  <!-- 匯入pinia end -->
+
+  <script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@6"></script>
+  <link href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@6/dist/css/index.css" rel="stylesheet">
+
+  <script type="module">
+
+    //確認有引入
+    //console.log(VeeValidate);
+    //加入全部規格(by CDN)
+    Object.keys(VeeValidateRules).forEach(rule => {
+      if (rule !== 'default') {
+        VeeValidate.defineRule(rule, VeeValidateRules[rule]);
+      }
+    });
+    // 讀取外部的資源
+    VeeValidateI18n.loadLocaleFromURL('./zh_TW.json');
+
+    // Activate the locale
+    VeeValidate.configure({
+      generateMessage: VeeValidateI18n.localize('zh_TW'),
+      validateOnInput: true, // 調整為：輸入文字時，就立即進行驗證
+    });
+
+
+    const url = "https://vue3-course-api.hexschool.io/v2";
+    const path = "annavue";
+    const apiUrl = `${url}/api/${path}`;
+
+    const loadingSetting = {
+      loader: 'dots',
+      canCancel: true,
+      color: '#36495e'
+    };
+
+    const { createApp } = Vue;
+
+    import productModalComponent from './components/productComponent.js'
+    import cartComponent from './components/cartComponent.js'
+
+
+    const app = createApp({
+      data() {
+        return {
+          text: "產品列表",
+          products: [],
+          pagination: {},
+          tempProduct: {},
+          order: {
+            user: {
+              name: '',
+              email: '',
+              tel: '',
+              address: ''
+            },
+            message: ''
+          },
+          isShowOrderArea: false,
+          fullPage: false,
+        }
+      },
+      mounted() {
+        this.getProductsData();
+      },
+      methods: {
+        openModal(item) {
+          this.tempProduct = item;
+          this.$refs.productModal.show();
+        },
+        openCartOffcanvas() {
+          this.$refs.cartOffcanvas.show();
+        },
+        openOrderArea() {
+          this.isShowOrderArea = true;
+        },
+        getProductsData(page = 1) {
+
+          let loader = this.$loading.show(loadingSetting);
+
+          axios
+            .get(`${apiUrl}/products?page=${page}`)
+            .then((response) => {
+              const { products, pagination } = response.data;
+              this.products = products;
+              this.pagination = pagination;
+              loader.hide();
+            })
+            .catch((err) => {
+              alert(err.response.data.message);
+              loader.hide();
+            });
+        },
+        addToCart(productId, qty = 1) {
+
+          axios
+            .post(`${apiUrl}/cart`, { data: { product_id: productId, qty: qty } })
+            .then((response) => {
+              alert(response.data.message);
+              this.openCartOffcanvas();
+            })
+            .catch((err) => {
+              alert(err.response.data.message);
+            });
+        },
+        onSubmit() {
+
+          let loader = this.$loading.show(loadingSetting);
+
+          axios
+            .post(`${apiUrl}/order`, { data: this.order })
+            .then((response) => {
+              console.log(response.data);
+              alert(response.data.message);
+              this.isShowOrderArea = false;
+              loader.hide();
+            })
+            .catch((err) => {
+              alert('訂單送出失敗');
+              console.log(err.response.data.message);
+              loader.hide();
+            });
+
+        },
+        checkPhone(value) {
+          const phoneNumber = /^(09)[0-9]{8}$/
+          return phoneNumber.test(value) ? true : '手機號碼不正確，必須為09開頭。'
+        }
+      },
+      components: {
+        productModalComponent, cartComponent
+      }
+    });
+
+    //註冊全域的表單驗證元件
+    app.component('VForm', VeeValidate.Form);
+    app.component('VField', VeeValidate.Field);
+    app.component('ErrorMessage', VeeValidate.ErrorMessage);
+
+    app.use(VueLoading.LoadingPlugin);
+    //app.component('loading', VueLoading.Component)
+
+    app.mount('#app');
+  </script>
+</body>
+
+</html>
