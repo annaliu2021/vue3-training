@@ -2,7 +2,8 @@
 
 ##網站設計前提:
 	我是參考現實中的[阿默蛋糕官網]進行重新設計，所以素材來自於官方網站。
-	https://www.amo.com.tw/tw/default
+	我的設計稿(figma):https://www.figma.com/file/ArHFNTCUyhoP08ZB6t6VNg/20230218?node-id=0%3A1&t=nu1D6tSOdU0yVL6M-1
+	官方網站:https://www.amo.com.tw/tw/default
 
 
 ## 提供三個預期想要的風格，可分享網站給設計師參考
@@ -25,7 +26,7 @@
 
 ## 設計風格
 
-日式風 極簡風 
+日式風 極簡風
 淺色系 暖色系
 可以接受手寫字體
 
@@ -48,6 +49,6 @@
 		阿默蛋糕官方網站
 
 
-	4.格線系統: 
+	4.格線系統:
 		Bootstrap 5
 
