@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/all.css">
+</head>
+<style>
+    main {
+        min-height: calc(100vh - 120px - 64px);
+    }
+
+    footer {
+        height: 120px;
+    }
+
+    .navbar {
+        height: 64px;
+    }
+
+    .navbar .nav-icons .cart-bag {
+        transform: scale(1.1);
+    }
+
+    .navbar .nav-icons svg {
+        width: 1.2rem;
+        fill: #fff;
+    }
+
+    .navbar .nav-icons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+    }
+
+    .navbar .nav-icons .badge {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: -40% -75% 0 0;
+        transform: scale(.8);
+        background: #e35d6a;
+        transition: all .2s;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .order-img {
+        max-width: 78px;
+        max-height: auto;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+</style>
+
+<body>
+    <!-- 導覽列 -->
+    <nav class="navbar navbar-expand navbar-dark bg-primary">
+        <div class="container-lg">
+            <a class="navbar-brand" href="#">
+                <h1 class="fs-5 mb-0">默默蛋糕</h1>
+            </a>
+            <div class="collapse navbar-collapse" id="main_nav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item me-3 active"> <a class="nav-link" href="#">默默商品</a> </li>
+                    <li class="nav-item me-3 d-flex align-items-center">
+                        <div class="nav-link p-0 nav-icons position-relative" role="button">
+                            <svg class="cart-bag" viewBox="0 0 512 512" fill="currentColor">
+                                <g>
+                                    <path
+                                        d="m452 120h-60.946c-7.945-67.478-65.477-120-135.054-120s-127.109 52.522-135.054 120h-60.946c-11.046 0-20 8.954-20 20v352c0 11.046 8.954 20 20 20h392c11.046 0 20-8.954 20-20v-352c0-11.046-8.954-20-20-20zm-196-80c47.484 0 87.019 34.655 94.659 80h-189.318c7.64-45.345 47.175-80 94.659-80zm176 432h-352v-312h40v60c0 11.046 8.954 20 20 20s20-8.954 20-20v-60h192v60c0 11.046 8.954 20 20 20s20-8.954 20-20v-60h40z">
+                                    </path>
+                                </g>
+                            </svg>
+                            <span class="badge rounded-pill fw-normal bg-secondary" id="cart-num">12</span>
+                        </div>
+                    </li>
+                </ul>
+            </div> <!-- navbar-collapse.// -->
+        </div> <!-- container-fluid.// -->
+    </nav>
+
+    <main>
+        <!-- 訂單步驟 -->
+        <section class="container-lg pt-8 pb-4">
+            <ul class="row list-unstyled row-cols-3">
+                <li class="col">
+                    <div class="bg-light align-items-center d-flex justify-content-center p-3 h-100">
+                        <span class="text-center">確認購物車內容</span>
+                    </div>
+                </li>
+                <li class="col">
+                    <div class="align-items-center d-flex justify-content-center p-3 h-100"
+                        style="background-color: #e0dcdc;">
+                        <span class="text-center">填寫訂購資訊</span>
+                    </div>
+                </li>
+                <li class="col">
+                    <div class="bg-light align-items-center d-flex justify-content-center p-3 h-100">
+                        <span class="text-center">完成訂單</span>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <!-- 訂單內容 -->
+        <section class="container-lg pb-8">
+            <div class="row">
+                <!-- 左邊訂單內容 -->
+                <div class="col-lg-6 mb-2 mb-lg-0">
+                    <div class="card">
+                        <div class="card-header bg-transparent text-center ">
+                            本次訂單內容</div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li class="row align-items-center -bottom py-2 g-2">
+                                    <img class="order-img" src="images/cakes/A/A01.jpg" alt="">
+                                    <div class=" col">
+                                        <p class="mb-0">商品名稱</p>
+                                        <p class="mb-0 d-block small" style="letter-spacing: 1px;">$
+                                            NT$ 280 元/盒</p>
+                                    </div>
+                                    <div class="col-1 text-end">
+                                        1
+                                    </div>
+                                    <div class="col-3">
+                                        <p class="m-0 text-end">NT$ 280元</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="text-end">
+                                總計金額：$ 280元
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右邊訂購資訊 -->
+                <div class="col">
+                    <div class="card border-secondary">
+                        <div class="card-header bg-secondary text-light text-center ">
+                            本次訂購資訊</div>
+                        <div class="card-body p-lg-5">
+                            <form class="" id="orderForm">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">訂購人姓名</label>
+                                    <input type="text" class="form-control" id="name" placeholder="請輸入訂購人姓名" name="姓名">
+                                    <span role="alert" class="invalid-feedback"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">訂購人Email</label>
+                                    <input type="email" class="form-control" id="email" placeholder="請輸入訂購人Email"
+                                        name="Email">
+                                    <span role="alert" class="invalid-feedback"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tel" class="form-label">訂購人手機號碼</label>
+                                    <input type="tel" class="form-control" id="tel" placeholder="請輸入訂購人手機號碼"
+                                        name="手機號碼">
+                                    <span role="alert" class="invalid-feedback"></span>
+                                </div>
+                                <div class="mb-3"><label for="address" class="form-label">訂購人地址</label><input
+                                        type="text" class="form-control" id="address" placeholder="請輸入訂購人地址" name="地址">
+                                </div>
+                                <div class="mb-3"><label for="message" class="form-label">備註</label>
+                                    <textarea class="form-control" id="message" rows="3" name="備註"></textarea>
+                                </div>
+                                <div class="py-4">
+                                    <button type="submit" class="btn btn-outline-secondary w-100 py-2"> 送出訂購單 </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- 頁尾 -->
+    <footer class="align-items-center d-flex bg-primary text-white">
+        <div class="container">
+            <div class="text-center">
+                <h6>默默蛋糕</h6>
+                <p>本網站僅供個人作品使用，不提供商業用途 | <a class="link-light" href="#">登入後台</a></p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
